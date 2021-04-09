@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhen-ke.github.io","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="brew 安装 aria21brew install aria2  建立配置文件（非必要）123mkdir ~&#x2F;.aria2cd .aria2touch aria2.conf  在 aria2.conf 写入配置1vim ~&#x2F;.aria2&#x2F;aria2.conf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OS X 下安装 aria2">
+<meta property="og:url" content="http://zhen-ke.github.io/2016/01/06/osx-install-aria2/index.html">
+<meta property="og:site_name" content="XMit">
+<meta property="og:description" content="brew 安装 aria21brew install aria2  建立配置文件（非必要）123mkdir ~&#x2F;.aria2cd .aria2touch aria2.conf  在 aria2.conf 写入配置1vim ~&#x2F;.aria2&#x2F;aria2.conf">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-01-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-09T15:18:12.209Z">
+<meta property="article:author" content="XMit">
+<meta property="article:tag" content="OS X">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://zhen-ke.github.io/2016/01/06/osx-install-aria2/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>OS X 下安装 aria2 | XMit</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4CDMW7KVZ"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L4CDMW7KVZ');
+      }
+    </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">XMit</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Frontend Engineer</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#brew-%E5%AE%89%E8%A3%85-aria2"><span class="nav-number">1.</span> <span class="nav-text">brew 安装 aria2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E9%9D%9E%E5%BF%85%E8%A6%81%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">建立配置文件（非必要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-aria2-conf-%E5%86%99%E5%85%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">在 aria2.conf 写入配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-RPC-%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">启动 RPC 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-YAAW-%E7%AE%A1%E7%90%86%E4%B8%8B%E8%BD%BD"><span class="nav-number">5.</span> <span class="nav-text">使用 YAAW 管理下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD-aria2"><span class="nav-number">6.</span> <span class="nav-text">关闭 aria2</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="XMit"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">XMit</p>
+  <div class="site-description" itemprop="description">Frontend Engineer</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="/xmit0806@outlook.com" title="E-Mail → xmit0806@outlook.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/zhen-ke" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhen-ke" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/xmit0806" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;xmit0806" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhen-ke.github.io/2016/01/06/osx-install-aria2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="XMit">
+      <meta itemprop="description" content="Frontend Engineer">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XMit">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OS X 下安装 aria2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-01-06 00:00:00" itemprop="dateCreated datePublished" datetime="2016-01-06T00:00:00+00:00">2016-01-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-09 15:18:12" itemprop="dateModified" datetime="2021-04-09T15:18:12+00:00">2021-04-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/OS-X/" itemprop="url" rel="index"><span itemprop="name">OS X</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="brew-安装-aria2"><a href="#brew-安装-aria2" class="headerlink" title="brew 安装 aria2"></a>brew 安装 aria2</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install aria2</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立配置文件（非必要）"><a href="#建立配置文件（非必要）" class="headerlink" title="建立配置文件（非必要）"></a>建立配置文件（非必要）</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/.aria2</span><br><span class="line"><span class="built_in">cd</span> .aria2</span><br><span class="line">touch aria2.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="在-aria2-conf-写入配置"><a href="#在-aria2-conf-写入配置" class="headerlink" title="在 aria2.conf 写入配置"></a>在 aria2.conf 写入配置</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.aria2/aria2.conf</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+
+<p>这里的配置文件可以参考<a target="_blank" rel="noopener" href="http://aria2c.com/usage.html">http://aria2c.com/usage.html</a></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用户名</span></span><br><span class="line"><span class="comment">#rpc-user=user</span></span><br><span class="line"><span class="comment">#密码</span></span><br><span class="line"><span class="comment">#rpc-passwd=passwd</span></span><br><span class="line"><span class="comment">#上面的认证方式不建议使用,建议使用下面的token方式</span></span><br><span class="line"><span class="comment">#设置加密的密钥</span></span><br><span class="line"><span class="comment">#rpc-secret=token</span></span><br><span class="line"><span class="comment">#允许rpc</span></span><br><span class="line">enable-rpc=<span class="literal">true</span></span><br><span class="line"><span class="comment">#允许所有来源, web界面跨域权限需要</span></span><br><span class="line">rpc-allow-origin-all=<span class="literal">true</span></span><br><span class="line"><span class="comment">#允许外部访问，false的话只监听本地端口</span></span><br><span class="line">rpc-listen-all=<span class="literal">true</span></span><br><span class="line"><span class="comment">#RPC端口, 仅当默认端口被占用时修改</span></span><br><span class="line"><span class="comment">#rpc-listen-port=6800</span></span><br><span class="line"><span class="comment">#最大同时下载数(任务数), 路由建议值: 3</span></span><br><span class="line">max-concurrent-downloads=5</span><br><span class="line"><span class="comment">#断点续传</span></span><br><span class="line"><span class="built_in">continue</span>=<span class="literal">true</span></span><br><span class="line"><span class="comment">#同服务器连接数</span></span><br><span class="line">max-connection-per-server=5</span><br><span class="line"><span class="comment">#最小文件分片大小, 下载线程数上限取决于能分出多少片, 对于小文件重要</span></span><br><span class="line">min-split-size=10M</span><br><span class="line"><span class="comment">#单文件最大线程数, 路由建议值: 5</span></span><br><span class="line">split=10</span><br><span class="line"><span class="comment">#下载速度限制</span></span><br><span class="line">max-overall-download-limit=0</span><br><span class="line"><span class="comment">#单文件速度限制</span></span><br><span class="line">max-download-limit=0</span><br><span class="line"><span class="comment">#上传速度限制</span></span><br><span class="line">max-overall-upload-limit=0</span><br><span class="line"><span class="comment">#单文件速度限制</span></span><br><span class="line">max-upload-limit=0</span><br><span class="line"><span class="comment">#断开速度过慢的连接</span></span><br><span class="line"><span class="comment">#lowest-speed-limit=0</span></span><br><span class="line"><span class="comment">#验证用，需要1.16.1之后的release版本</span></span><br><span class="line"><span class="comment">#referer=*</span></span><br><span class="line"><span class="comment">#文件保存路径, 默认为当前启动位置</span></span><br><span class="line">dir=/Users/请填写你的用户名/Downloads</span><br><span class="line"><span class="comment">#文件缓存, 使用内置的文件缓存, 如果你不相信Linux内核文件缓存和磁盘内置缓存时使用, 需要1.16及以上版本</span></span><br><span class="line"><span class="comment">#disk-cache=0</span></span><br><span class="line"><span class="comment">#另一种Linux文件缓存方式, 使用前确保您使用的内核支持此选项, 需要1.15及以上版本(?)</span></span><br><span class="line"><span class="comment">#enable-mmap=true</span></span><br><span class="line"><span class="comment">#文件预分配, 能有效降低文件碎片, 提高磁盘性能. 缺点是预分配时间较长</span></span><br><span class="line"><span class="comment">#所需时间 none &lt; falloc ? trunc « prealloc, falloc和trunc需要文件系统和内核支持</span></span><br><span class="line">file-allocation=prealloc</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动-RPC-模式"><a href="#启动-RPC-模式" class="headerlink" title="启动 RPC 模式"></a>启动 RPC 模式</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aria2c --conf-path=<span class="string">&quot;/Users/用户名/.aria2/aria2.conf&quot;</span> -D</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-YAAW-管理下载"><a href="#使用-YAAW-管理下载" class="headerlink" title="使用 YAAW 管理下载"></a>使用 YAAW 管理下载</h3><p>这里我是使用在线版YAAW来管理aria2下载的，直接打开 <a target="_blank" rel="noopener" href="http://aria2c.com/">http://aria2c.com/</a>，在设置里填入 JSON-RPC Path 地址就可以开始下载了（JSON-RPC Path 默认为: <a target="_blank" rel="noopener" href="http://localhost:6800/jsonrpc%EF%BC%89">http://localhost:6800/jsonrpc）</a></p>
+<h3 id="关闭-aria2"><a href="#关闭-aria2" class="headerlink" title="关闭 aria2"></a>关闭 aria2</h3><p>kill aria2 之后按 Tab 键，aria2 会自动变成进程号，回车即可杀掉它</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://raw.githubusercontent.com/zhen-ke/ffmpegGUI/master/screenshot/pay.png" alt="XMit 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/OS-X/" rel="tag"># OS X</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2015/09/11/git-configuration-notes/" rel="prev" title="git 配置笔记">
+                  <i class="fa fa-chevron-left"></i> git 配置笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/02/20/gargoyle-install-aria2-transmission-hdidle/" rel="next" title="Gargoyle 安装 Aria2 、Transmission、Hd-idle ">
+                  Gargoyle 安装 Aria2 、Transmission、Hd-idle  <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">XMit</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
