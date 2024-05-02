@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" integrity="sha256-6cQIC71/iBIYXFK+0RHAvwmjwWzkWd+r7v/BX3/vZDc=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zhen-ke.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="如何开启硬件加速注意： 在开启硬件加速时，转码的速度虽然快了，但视频质量会出现大幅下滑，目前解决办法只能通过设置高码率来解决，目前我的做法是在原码率的基础上提高 1.5 倍，基本能保证视频质量，但体积也会增加 1.5 倍（如果有更好的方法请告诉我） 以我这个项目为例，首先通过执行 ffmpeg -hwaccels 来获取当前机器支持哪些硬件加速的方法，不同的平台开启硬件加速的方法不一样 查看机器支">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ffmpegGUI 开发笔记">
+<meta property="og:url" content="http://zhen-ke.github.io/2019/06/17/ffmpeggui-development-notes/index.html">
+<meta property="og:site_name" content="XMit">
+<meta property="og:description" content="如何开启硬件加速注意： 在开启硬件加速时，转码的速度虽然快了，但视频质量会出现大幅下滑，目前解决办法只能通过设置高码率来解决，目前我的做法是在原码率的基础上提高 1.5 倍，基本能保证视频质量，但体积也会增加 1.5 倍（如果有更好的方法请告诉我） 以我这个项目为例，首先通过执行 ffmpeg -hwaccels 来获取当前机器支持哪些硬件加速的方法，不同的平台开启硬件加速的方法不一样 查看机器支">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zhen-ke.github.io/images/ffmpeggui-development-notes/screenshot-03.png">
+<meta property="og:image" content="http://zhen-ke.github.io/images/ffmpeggui-development-notes/screenshot-04.png">
+<meta property="article:published_time" content="2019-06-17T00:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-02T06:11:53.054Z">
+<meta property="article:author" content="XMit">
+<meta property="article:tag" content="ffmpeg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zhen-ke.github.io/images/ffmpeggui-development-notes/screenshot-03.png">
+
+
+<link rel="canonical" href="http://zhen-ke.github.io/2019/06/17/ffmpeggui-development-notes/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://zhen-ke.github.io/2019/06/17/ffmpeggui-development-notes/","path":"2019/06/17/ffmpeggui-development-notes/","title":"ffmpegGUI 开发笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ffmpegGUI 开发笔记 | XMit</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L4CDMW7KVZ"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"G-L4CDMW7KVZ","only_pageview":false,"measure_protocol_api_secret":null}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{&quot;token&quot;: &quot;575fb740fb654c978b4768bd71781c02&quot;}'></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">XMit</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Frontend Engineer</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%90%AF%E7%A1%AC%E4%BB%B6%E5%8A%A0%E9%80%9F"><span class="nav-number">1.</span> <span class="nav-text">如何开启硬件加速</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%90%8E-electron-%E9%87%8C-asar-%E4%B8%8D%E8%83%BD%E4%BD%BF%E7%94%A8%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">打包后 electron 里 asar 不能使用二进制文件的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87-Webpack-%E6%89%93%E5%8C%85%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E5%88%B0-APP-%E9%87%8C"><span class="nav-number">3.</span> <span class="nav-text">如何通过 Webpack 打包不同平台的二进制文件到 APP 里</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="XMit"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">XMit</p>
+  <div class="site-description" itemprop="description">Frontend Engineer</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="/xmit0806@outlook.com" title="E-Mail → xmit0806@outlook.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3poZW4ta2U=" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;zhen-ke"><i class="github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly90d2l0dGVyLmNvbS94bWl0MDgwNg==" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;xmit0806"><i class="twitter fa-fw"></i>Twitter</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zhen-ke.github.io/2019/06/17/ffmpeggui-development-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="XMit">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XMit">
+      <meta itemprop="description" content="Frontend Engineer">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ffmpegGUI 开发笔记 | XMit">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ffmpegGUI 开发笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-06-17 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-17T00:00:00+00:00">2019-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-02 06:11:53" itemprop="dateModified" datetime="2024-05-02T06:11:53+00:00">2024-05-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web-Developer/" itemprop="url" rel="index"><span itemprop="name">Web Developer</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="如何开启硬件加速"><a href="#如何开启硬件加速" class="headerlink" title="如何开启硬件加速"></a>如何开启硬件加速</h2><p><strong>注意：</strong> 在开启硬件加速时，转码的速度虽然快了，但视频质量会出现大幅下滑，目前解决办法只能通过设置高码率来解决，目前我的做法是在原码率的基础上提高 1.5 倍，基本能保证视频质量，但体积也会增加 1.5 倍（如果有更好的方法请告诉我）</p>
+<p>以我这个项目为例，首先通过执行 <code>ffmpeg -hwaccels</code> 来获取当前机器支持哪些硬件加速的方法，不同的平台开启硬件加速的方法不一样</p>
+<p>查看机器支持的硬件加速的方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node子进程的方式</span></span><br><span class="line"><span class="keyword">let</span> exec = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="property">exec</span>;</span><br><span class="line"><span class="title function_">exec</span>(<span class="string">`<span class="subst">$&#123;ffmpegPath&#125;</span> -hwaccels`</span>, <span class="function">(<span class="params">err, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(stdout); <span class="comment">// Hardware acceleration methods: videotoolbox</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原生ffmpeg的方式</span></span><br><span class="line">ffmpeg - hwaccels;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>查看机器支持的编码器（encoders）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// node子进程的方式</span></span><br><span class="line"><span class="keyword">let</span> exec = <span class="built_in">require</span>(<span class="string">&quot;child_process&quot;</span>).<span class="property">exec</span>;</span><br><span class="line"><span class="title function_">exec</span>(<span class="string">`<span class="subst">$&#123;ffmpegPath&#125;</span> -encoders`</span>, <span class="function">(<span class="params">err, stdout, stderr</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(stdout);</span><br><span class="line">  <span class="comment">// 这里会打印出很多信息，只需要找出带有之前带有videotoolbox的就行（这里的 videotoolbox 是上次查到的支持硬件加速的方法）</span></span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">  <span class="comment">// V..... h264_videotoolbox    VideoToolbox H.264 Encoder (codec h264)</span></span><br><span class="line">  <span class="comment">// V..... hevc_videotoolbox    VideoToolbox H.265 Encoder (codec hevc)</span></span><br><span class="line">  <span class="comment">// ......</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原生ffmpeg的方式</span></span><br><span class="line">ffmpeg - encoders;</span><br></pre></td></tr></table></figure>
+
+<p>把上面查到的结果带到<code>ffmpeg</code> 里执行即可（以下代码是我项目的例子，如果是命令的方式，直接带上这个参数执行就行）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ffmpeg</span>()</span><br><span class="line">  .<span class="title function_">input</span>(<span class="string">&quot;/dev/video&quot;</span>)</span><br><span class="line">  .<span class="title function_">videoCodec</span>(<span class="string">&quot;h264_videotoolbox&quot;</span>) <span class="comment">// H264，hevc_videotoolbox(h265)</span></span><br><span class="line">  .<span class="title function_">inputFormat</span>(<span class="string">&quot;mov&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原生ffmpeg的方式</span></span><br><span class="line">ffmpeg -vcodec h264_videotoolbox</span><br></pre></td></tr></table></figure>
+
+<p>以上就可以开启硬件加速功能了</p>
+<h2 id="打包后-electron-里-asar-不能使用二进制文件的问题"><a href="#打包后-electron-里-asar-不能使用二进制文件的问题" class="headerlink" title="打包后 electron 里 asar 不能使用二进制文件的问题"></a>打包后 electron 里 asar 不能使用二进制文件的问题</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修复 electron asar 不能使用二进制文件的问题</span></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> !== <span class="string">&quot;development&quot;</span>) &#123;</span><br><span class="line">  ffmpegPath = ffmpegPath.<span class="title function_">replace</span>(<span class="string">&quot;app.asar&quot;</span>, <span class="string">&quot;app.asar.unpacked&quot;</span>);</span><br><span class="line">  ffprobePath = ffprobePath.<span class="title function_">replace</span>(<span class="string">&quot;app.asar&quot;</span>, <span class="string">&quot;app.asar.unpacked&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在打完包后，会把相关的二进制文件放到<code>app.asar.unpacked</code>里，默认会放到<code>app.asar</code>里</p>
+<p><img src="/images/ffmpeggui-development-notes/screenshot-03.png" alt="screenshot3"></p>
+<h2 id="如何通过-Webpack-打包不同平台的二进制文件到-APP-里"><a href="#如何通过-Webpack-打包不同平台的二进制文件到-APP-里" class="headerlink" title="如何通过 Webpack 打包不同平台的二进制文件到 APP 里"></a>如何通过 Webpack 打包不同平台的二进制文件到 APP 里</h2><p>首先通过 <code>process.platform</code>来判断平台，然后用 <code>CopyWebpackPlugin</code> 插件从 <code>node_modules</code> 把相关平台的的二进制文件复制出来</p>
+<p><strong>webpack.renderer.config</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> ffmpegBasePath = <span class="string">&quot;../node_modules/ffmpeg-static/bin/&quot;</span>; <span class="comment">// ffmpeg-static</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> &#123; platform &#125; = process;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> ffmpegPathMap = &#123;</span><br><span class="line">    <span class="attr">darwin</span>: <span class="string">&quot;darwin/x64/ffmpeg&quot;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> ffmpegPath = ffmpegBasePath + ffmpegPathMap[platform];</span><br><span class="line"></span><br><span class="line">  rendererConfig.<span class="property">plugins</span>.<span class="title function_">push</span>(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>([</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, ffmpegPath),</span><br><span class="line">        <span class="attr">to</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&quot;../core&quot;</span>),</span><br><span class="line">        <span class="attr">ignore</span>: [<span class="string">&quot;.*&quot;</span>],</span><br><span class="line">      &#125;,</span><br><span class="line">    ])</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调整二进制文件的权限，并设置 <code>ffmpeg</code> 的打包后的路径（复制出来的二进制文件似乎有权限问题）</p>
+<p><strong>core.js</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ffmpeg <span class="keyword">from</span> <span class="string">&quot;fluent-ffmpeg&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; resolve &#125; <span class="keyword">from</span> <span class="string">&quot;path&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 找出复制出来的路径</span></span><br><span class="line"><span class="keyword">let</span> basePath = <span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../../../core/&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.<span class="property">env</span>.<span class="property">NODE_ENV</span> == <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> realFfmpegPath = basePath + <span class="string">&quot;/ffmpeg&quot;</span>;</span><br><span class="line"></span><br><span class="line">  fs.<span class="title function_">stat</span>(realFfmpegPath, <span class="function">(<span class="params">err, stats</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span>;</span><br><span class="line">    <span class="comment">// 如果 ffmpeg、ffprobe 非 777 权限，则设置成 777</span></span><br><span class="line">    <span class="keyword">if</span> (stats.<span class="property">mode</span> !== <span class="number">33279</span>) &#123;</span><br><span class="line">      fs.<span class="title function_">chmod</span>(realFfmpegPath, <span class="string">&quot;0777&quot;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">          <span class="variable language_">console</span>.<span class="title function_">error</span>(err);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;ffmpeg 修改权限成功&quot;</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  ffmpegPath = realFfmpegPath;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ffmpeg.<span class="title function_">setFfmpegPath</span>(ffmpegPath);</span><br></pre></td></tr></table></figure>
+
+<p>把二进制文件打包到 APP 里（通过 <code>electron builder</code> 的 <code>extraResources</code> 把二进制文件拷贝到 APP 里）</p>
+<p><strong>package.json</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;mac&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;extraResources&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./core/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./core/&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;filter&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;**/*&quot;</span><span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/ffmpeggui-development-notes/screenshot-04.png" alt="screenshot4"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="https://raw.githubusercontent.com/zhen-ke/ffmpegGUI/master/screenshot/pay.png" alt="XMit 微信">
+        <span>微信</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/04/19/react-hoc/" rel="prev" title="记 React 中一次复用与封装">
+                  <i class="fa fa-angle-left"></i> 记 React 中一次复用与封装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/23/webpack-study-notes/" rel="next" title="webpack 学习笔记">
+                  webpack 学习笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2015 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">XMit</span>
+  </div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js" integrity="sha256-ytMJGN3toR+a84u7g7NuHm91VIR06Q41kMWDr2pq7Zo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
