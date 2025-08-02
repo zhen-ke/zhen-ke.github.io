@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Frontend Engineer">
+    <meta name="author" content="XMit">
+    
+    <title>
+        
+            Armbian USB 自动挂载并共享教程 |
+        
+        XMit
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"zhen-ke.github.io","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XMit","author":"XMit","avatar":"/images/me.jpg","logo":"/images/me.jpg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","categories":"/categories","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"诸恶莫作 众善奉行","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY 年 MM 月 DD 日 HH:mm","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2015,"word_count":false,"site_deploy":{"enable":true,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="XMit" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/me.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XMit
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Armbian USB 自动挂载并共享教程
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/me.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">XMit</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2024 年 11 月 15 日 00:00</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Sat Aug 02 2025 00:29:31 GMT+0000">2025 年 08 月 02 日 00:29</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/armbian-usb-automount-share/">armbian usb automount share</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/NAS/">NAS</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <p>本教程介绍如何在 Armbian 系统上实现 USB 设备的自动挂载和 Samba 共享功能。通过这个脚本，你可以实现插入 USB 设备后自动挂载并创建网络共享，支持 Windows 网络发现功能。</p>
+<h2 id="功能特点"><a href="#功能特点" class="headerlink" title="功能特点"></a>功能特点</h2><ul>
+<li>自动检测并挂载 USB 存储设备</li>
+<li>支持多种文件系统：NTFS、FAT32、exFAT、ext4</li>
+<li>自动配置 Samba 共享</li>
+<li>支持 Windows 网络发现（通过 wsdd2）</li>
+<li>即插即用，无需手动操作</li>
+<li>支持匿名访问和完全读写权限</li>
+<li>自动日志记录</li>
+<li>智能依赖检查和安装</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="1-更换镜像源（可选，但推荐）"><a href="#1-更换镜像源（可选，但推荐）" class="headerlink" title="1. 更换镜像源（可选，但推荐）"></a>1. 更换镜像源（可选，但推荐）</h3><p>编辑 sources.list 文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
+
+<p>选择适合你系统的镜像源：</p>
+<details>
+<summary>📦 Ubuntu 系统（点击展开）</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清华大学 Ubuntu 镜像源</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ noble main restricted universe multiverse</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ noble-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ noble-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<details>
+<summary>📦 Debian 系统（点击展开）</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 清华大学 Debian 镜像源</span></span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware</span><br><span class="line">deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<blockquote>
+<p>💡 提示：选择对应你系统的镜像源复制即可，不确定是哪个系统可以通过 <code>lsb_release -a</code> 命令查看</p>
+</blockquote>
+<h3 id="2-安装必要软件包"><a href="#2-安装必要软件包" class="headerlink" title="2. 安装必要软件包"></a>2. 安装必要软件包</h3><p>脚本会自动安装以下必要组件：</p>
+<ul>
+<li>samba：网络共享服务</li>
+<li>samba-common-bin：Samba 通用组件</li>
+<li>ntfs-3g：NTFS 文件系统支持</li>
+<li>exfat-fuse 和 exfatprogs：exFAT 文件系统支持</li>
+<li>jq：JSON 处理工具</li>
+<li>wsdd2：Windows 网络发现支持</li>
+</ul>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="1-创建脚本文件"><a href="#1-创建脚本文件" class="headerlink" title="1. 创建脚本文件"></a>1. 创建脚本文件</h3><p>创建并编辑脚本文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano usb-automount-share.sh</span><br></pre></td></tr></table></figure>
+
+<details>
+<summary>📦 脚本内容（点击展开）</summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置</span></span><br><span class="line"></span><br><span class="line">MOUNT_BASE=<span class="string">&quot;/mnt/usb&quot;</span></span><br><span class="line">SMB_CONF=<span class="string">&quot;/etc/samba/smb.conf&quot;</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/usb_share.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保基础挂载目录存在</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$MOUNT_BASE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取所有 USB 存储设备</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">get_usb_devices</span></span>() &#123;</span><br><span class="line">lsblk -Jplno NAME,TYPE,RM,UUID | jq -r <span class="string">&#x27;.blockdevices[]</span></span><br><span class="line"><span class="string">| select(.type == &quot;part&quot; and .rm == true and .uuid != null)</span></span><br><span class="line"><span class="string">| .name + &quot; &quot; + .uuid&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置 Samba 共享</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">setup_samba_share</span></span>() &#123;</span><br><span class="line"><span class="built_in">local</span> mount_point=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line">    <span class="built_in">local</span> share_name=$(<span class="built_in">basename</span> <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 如果配置文件不存在或为空，先创建基本配置</span></span><br><span class="line">    <span class="keyword">if</span> [ ! -f <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> ] || [ ! -s <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># 创建配置文件目录</span></span><br><span class="line">        <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="subst">$(dirname <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span>)</span>&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建基本配置</span></span><br><span class="line">        <span class="built_in">cat</span> &gt; <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[global]</span></span><br><span class="line"><span class="string">workgroup = WORKGROUP</span></span><br><span class="line"><span class="string">netbios name = USB-SHARE</span></span><br><span class="line"><span class="string">wins support = yes</span></span><br><span class="line"><span class="string">local master = yes</span></span><br><span class="line"><span class="string">preferred master = yes</span></span><br><span class="line"><span class="string">server string = USB Share Server</span></span><br><span class="line"><span class="string">dns proxy = no</span></span><br><span class="line"><span class="string">log file = /var/log/samba/log.%m</span></span><br><span class="line"><span class="string">max log size = 1000</span></span><br><span class="line"><span class="string">server role = standalone server</span></span><br><span class="line"><span class="string">map to guest = Bad User</span></span><br><span class="line"><span class="string">usershare allow guests = yes</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 确保日志目录存在</span></span><br><span class="line">        <span class="built_in">mkdir</span> -p /var/log/samba</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置适当的权限</span></span><br><span class="line">        <span class="built_in">chmod</span> 644 <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检查并添加全局配置</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">&quot;wins support = yes&quot;</span> <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># 备份原配置</span></span><br><span class="line">        <span class="built_in">cp</span> <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> <span class="string">&quot;<span class="variable">$&#123;SMB_CONF&#125;</span>.bak&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 添加全局配置到文件开头</span></span><br><span class="line">        <span class="built_in">cat</span> &gt; <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[global]</span></span><br><span class="line"><span class="string">workgroup = WORKGROUP</span></span><br><span class="line"><span class="string">netbios name = USB-SHARE</span></span><br><span class="line"><span class="string">wins support = yes</span></span><br><span class="line"><span class="string">local master = yes</span></span><br><span class="line"><span class="string">preferred master = yes</span></span><br><span class="line"><span class="string">server string = USB Share Server</span></span><br><span class="line"><span class="string">dns proxy = no</span></span><br><span class="line"><span class="string">log file = /var/log/samba/log.%m</span></span><br><span class="line"><span class="string">max log size = 1000</span></span><br><span class="line"><span class="string">server role = standalone server</span></span><br><span class="line"><span class="string">map to guest = Bad User</span></span><br><span class="line"><span class="string">usershare allow guests = yes</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">EOF</span> <span class="comment"># 追加原配置文件的其余部分（排除原有的 [global] 部分）</span></span><br><span class="line">sed <span class="string">&#x27;/\[global\]/,/\[/!d;/\[global\]/d;/\[/!d&#x27;</span> <span class="string">&quot;<span class="variable">$&#123;SMB_CONF&#125;</span>.bak&quot;</span> &gt;&gt; <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检查共享是否已存在</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">&quot;^\[<span class="variable">$share_name</span>\]&quot;</span> <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># 添加共享配置</span></span><br><span class="line">        <span class="built_in">cat</span> &gt;&gt; <span class="string">&quot;<span class="variable">$SMB_CONF</span>&quot;</span> &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">[$share_name]</span></span><br><span class="line"><span class="string">path = $mount_point</span></span><br><span class="line"><span class="string">browseable = yes</span></span><br><span class="line"><span class="string">read only = no</span></span><br><span class="line"><span class="string">guest ok = yes</span></span><br><span class="line"><span class="string">create mask = 0777</span></span><br><span class="line"><span class="string">directory mask = 0777</span></span><br><span class="line"><span class="string">force user = nobody</span></span><br><span class="line"><span class="string">force group = nogroup</span></span><br><span class="line"><span class="string">comment = USB Share - $share_name</span></span><br><span class="line"><span class="string">EOF</span> <span class="comment"># 重启 Samba 服务</span></span><br><span class="line">systemctl restart smbd nmbd</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载设备</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">mount_device</span></span>() &#123;</span><br><span class="line"><span class="built_in">local</span> device=<span class="string">&quot;<span class="variable">$1</span>&quot;</span></span><br><span class="line">    <span class="built_in">local</span> uuid=<span class="string">&quot;<span class="variable">$2</span>&quot;</span></span><br><span class="line">    <span class="built_in">local</span> mount_point=<span class="string">&quot;<span class="variable">$MOUNT_BASE</span>/<span class="subst">$(basename <span class="string">&quot;<span class="variable">$device</span>&quot;</span>)</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建挂载点</span></span><br><span class="line">    <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 检查是否已经挂载</span></span><br><span class="line">    <span class="keyword">if</span> ! mountpoint -q <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># 尝试挂载</span></span><br><span class="line">        mount -U <span class="string">&quot;<span class="variable">$uuid</span>&quot;</span> <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span> -o rw,<span class="built_in">users</span>,<span class="built_in">umask</span>=000</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;成功挂载设备 <span class="variable">$device</span> 到 <span class="variable">$mount_point</span>&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">            <span class="comment"># 设置Samba共享</span></span><br><span class="line">            setup_samba_share <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;挂载设备 <span class="variable">$device</span> 失败&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">            <span class="built_in">rmdir</span> <span class="string">&quot;<span class="variable">$mount_point</span>&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查并安装依赖</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">install_dependencies</span></span>() &#123;</span><br><span class="line"><span class="built_in">local</span> dependencies=(<span class="string">&quot;samba&quot;</span> <span class="string">&quot;samba-common-bin&quot;</span> <span class="string">&quot;ntfs-3g&quot;</span> <span class="string">&quot;exfat-fuse&quot;</span> <span class="string">&quot;exfatprogs&quot;</span> <span class="string">&quot;jq&quot;</span> <span class="string">&quot;wsdd2&quot;</span>)</span><br><span class="line"><span class="built_in">local</span> packages_to_install=()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> package <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$&#123;dependencies[@]&#125;</span>&quot;</span>; <span class="keyword">do</span></span><br><span class="line">        <span class="comment"># 使用 dpkg-query 检查包是否已安装</span></span><br><span class="line">        <span class="keyword">if</span> ! dpkg-query -W -f=<span class="string">&#x27;$&#123;Status&#125;&#x27;</span> <span class="string">&quot;<span class="variable">$package</span>&quot;</span> 2&gt;/dev/null | grep -q <span class="string">&quot;ok installed&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;需要安装: <span class="variable">$package</span>&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">            packages_to_install+=(<span class="string">&quot;<span class="variable">$package</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 只有当有包需要安装时才执行安装</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="variable">$&#123;#packages_to_install[@]&#125;</span> -gt 0 ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;开始安装缺失的包...&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">        <span class="comment"># 先尝试直接安装</span></span><br><span class="line">        <span class="keyword">if</span> ! apt-get install -y <span class="string">&quot;<span class="variable">$&#123;packages_to_install[@]&#125;</span>&quot;</span>; <span class="keyword">then</span></span><br><span class="line">            <span class="comment"># 如果安装失败，则更新源后重试</span></span><br><span class="line">            <span class="built_in">echo</span> <span class="string">&quot;直接安装失败，更新软件源后重试...&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">            apt-get update &amp;&amp; apt-get install -y <span class="string">&quot;<span class="variable">$&#123;packages_to_install[@]&#125;</span>&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;所有依赖包已安装&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保 nmbd 服务已安装并启动</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">ensure_nmbd_service</span></span>() &#123;</span><br><span class="line">systemctl <span class="built_in">enable</span> nmbd</span><br><span class="line">systemctl start nmbd</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加新函数来确保 wsdd2 服务正常运行</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">ensure_wsdd2_service</span></span>() &#123;</span><br><span class="line">systemctl <span class="built_in">enable</span> wsdd2</span><br><span class="line">systemctl start wsdd2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">main</span></span>() &#123; <span class="comment"># 检查并安装依赖</span></span><br><span class="line">install_dependencies</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 确保 nmbd 服务已安装并启动</span></span><br><span class="line">    ensure_nmbd_service</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 确保 wsdd2 服务已启动</span></span><br><span class="line">    ensure_wsdd2_service</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理所有USB存储设备</span></span><br><span class="line">    <span class="keyword">while</span> <span class="built_in">read</span> -r device uuid; <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">if</span> [ -n <span class="string">&quot;<span class="variable">$uuid</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">            mount_device <span class="string">&quot;<span class="variable">$device</span>&quot;</span> <span class="string">&quot;<span class="variable">$uuid</span>&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span> &lt; &lt;(get_usb_devices)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行主函数</span></span><br><span class="line"></span><br><span class="line">main</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="2-设置脚本权限并安装"><a href="#2-设置脚本权限并安装" class="headerlink" title="2. 设置脚本权限并安装"></a>2. 设置脚本权限并安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x usb-automount-share.sh</span><br><span class="line"><span class="built_in">cp</span> usb-automount-share.sh /usr/local/bin/</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置开机自启"><a href="#3-配置开机自启" class="headerlink" title="3. 配置开机自启"></a>3. 配置开机自启</h3><p>有两种方式可以选择：</p>
+<h4 id="方式一：使用-rc-local（推荐）"><a href="#方式一：使用-rc-local（推荐）" class="headerlink" title="方式一：使用 rc.local（推荐）"></a>方式一：使用 rc.local（推荐）</h4><ol>
+<li>编辑 rc.local 文件：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 <code>exit 0</code> 前添加：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin/usb-automount-share.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>确保 rc.local 可执行：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> +x /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<h4 id="方式二：使用-systemd-service"><a href="#方式二：使用-systemd-service" class="headerlink" title="方式二：使用 systemd service"></a>方式二：使用 systemd service</h4><ol>
+<li>创建服务文件：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/usb-automount.service</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>添加以下内容：</li>
+</ol>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=USB Automount Service</span><br><span class="line"><span class="attr">After</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/local/bin/usb-automount-share.sh</span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启用服务：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> usb-automount</span><br><span class="line">sudo systemctl start usb-automount</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h2><h3 id="1-插入-USB-设备"><a href="#1-插入-USB-设备" class="headerlink" title="1. 插入 USB 设备"></a>1. 插入 USB 设备</h3><p>设备插入后会自动：</p>
+<ul>
+<li>检测 USB 设备</li>
+<li>创建挂载点</li>
+<li>挂载设备</li>
+<li>配置网络共享</li>
+</ul>
+<h3 id="2-访问共享"><a href="#2-访问共享" class="headerlink" title="2. 访问共享"></a>2. 访问共享</h3><ul>
+<li>Windows：<ul>
+<li>方式 1：网络邻居中找到 “USB-SHARE”</li>
+<li>方式 2：<code>\\USB-SHARE</code> 或 <code>\\IP地址</code></li>
+</ul>
+</li>
+<li>Mac：<code>smb://USB-SHARE</code> 或 <code>smb://IP地址</code></li>
+<li>Linux：<code>smb://USB-SHARE</code> 或 <code>smb://IP地址</code></li>
+</ul>
+<h3 id="3-查看状态"><a href="#3-查看状态" class="headerlink" title="3. 查看状态"></a>3. 查看状态</h3><ul>
+<li>检查挂载：<code>df -h</code> 或 <code>lsblk</code></li>
+<li>查看日志：<code>tail -f /var/log/usb_share.log</code></li>
+<li>检查服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl status smbd</span><br><span class="line">systemctl status nmbd</span><br><span class="line">systemctl status wsdd2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="故障排除"><a href="#故障排除" class="headerlink" title="故障排除"></a>故障排除</h2><h3 id="1-网络发现问题"><a href="#1-网络发现问题" class="headerlink" title="1. 网络发现问题"></a>1. 网络发现问题</h3><p>检查 wsdd2 服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status wsdd2</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-共享访问问题"><a href="#2-共享访问问题" class="headerlink" title="2. 共享访问问题"></a>2. 共享访问问题</h3><p>检查 Samba 配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testparm</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-挂载问题"><a href="#3-挂载问题" class="headerlink" title="3. 挂载问题"></a>3. 挂载问题</h3><p>查看设备信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk -f</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-权限问题"><a href="#4-权限问题" class="headerlink" title="4. 权限问题"></a>4. 权限问题</h3><p>检查挂载权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -l /mnt/usb/</span><br></pre></td></tr></table></figure>
+
+<h2 id="日志说明"><a href="#日志说明" class="headerlink" title="日志说明"></a>日志说明</h2><p>脚本会记录以下信息到 <code>/var/log/usb_share.log</code>：</p>
+<ul>
+<li>设备挂载状态</li>
+<li>依赖安装情况</li>
+<li>错误信息</li>
+<li>服务启动状态</li>
+</ul>
+<h2 id="安全建议"><a href="#安全建议" class="headerlink" title="安全建议"></a>安全建议</h2><ol>
+<li><p>默认配置</p>
+<ul>
+<li>允许匿名访问</li>
+<li>完全读写权限</li>
+<li>适合家庭网络使用</li>
+</ul>
+</li>
+<li><p>增强安全性</p>
+<ul>
+<li>修改 Samba 配置添加用户认证</li>
+<li>限制共享权限</li>
+<li>配置防火墙规则</li>
+</ul>
+</li>
+</ol>
+<h2 id="技术支持"><a href="#技术支持" class="headerlink" title="技术支持"></a>技术支持</h2><p>如遇问题，请检查：</p>
+<ol>
+<li>系统日志：<code>journalctl -xe</code></li>
+<li>Samba 日志：<code>tail -f /var/log/samba/log.smbd</code></li>
+<li>USB 日志：<code>tail -f /var/log/usb_share.log</code></li>
+<li>确保所需服务正常运行</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.samba.org/samba/docs/" >Samba 官方文档<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/christgau/wsdd2" >wsdd2 项目<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.armbian.com/" >Armbian 官方文档<i class="fas fa-external-link-alt"></i></a></li>
+</ul>
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Armbian USB 自动挂载并共享教程
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2024/11/15/armbian-usb-automount-share/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">XMit</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2024-11-15 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/NAS/">NAS</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2024/10/29/macos-dev-env-config/"
+                                   title="macOS 前端开发环境配置指南"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">macOS 前端开发环境配置指南</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E7%82%B9"><span class="nav-text">功能特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-text">前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F%E6%BA%90%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%8C%E4%BD%86%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-text">1. 更换镜像源（可选，但推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-text">2. 安装必要软件包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-text">1. 创建脚本文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AE%E8%84%9A%E6%9C%AC%E6%9D%83%E9%99%90%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-text">2. 设置脚本权限并安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-text">3. 配置开机自启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8-rc-local%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-text">方式一：使用 rc.local（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8-systemd-service"><span class="nav-text">方式二：使用 systemd service</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8F%92%E5%85%A5-USB-%E8%AE%BE%E5%A4%87"><span class="nav-text">1. 插入 USB 设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BF%E9%97%AE%E5%85%B1%E4%BA%AB"><span class="nav-text">2. 访问共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81"><span class="nav-text">3. 查看状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="nav-text">故障排除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-text">1. 网络发现问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B1%E4%BA%AB%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98"><span class="nav-text">2. 共享访问问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%82%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="nav-text">3. 挂载问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="nav-text">4. 权限问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E8%AF%B4%E6%98%8E"><span class="nav-text">日志说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="nav-text">安全建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81"><span class="nav-text">技术支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+        &copy;&nbsp;<span>2015</span>&nbsp;-&nbsp;2025
+        
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">XMit</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+        
+        <div class="deploy-info info-item">
+            
+            本站由 <span class="tooltip" data-tooltip-content="GitHub Pages"><img src="/images/brands/github.png"></span> 提供部署服务
+            
+        </div>
+    
+
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E7%89%B9%E7%82%B9"><span class="nav-text">功能特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-text">前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9B%B4%E6%8D%A2%E9%95%9C%E5%83%8F%E6%BA%90%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%8C%E4%BD%86%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-text">1. 更换镜像源（可选，但推荐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-text">2. 安装必要软件包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-text">1. 创建脚本文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BE%E7%BD%AE%E8%84%9A%E6%9C%AC%E6%9D%83%E9%99%90%E5%B9%B6%E5%AE%89%E8%A3%85"><span class="nav-text">2. 设置脚本权限并安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-text">3. 配置开机自启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9A%E4%BD%BF%E7%94%A8-rc-local%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-text">方式一：使用 rc.local（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8-systemd-service"><span class="nav-text">方式二：使用 systemd service</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%8F%92%E5%85%A5-USB-%E8%AE%BE%E5%A4%87"><span class="nav-text">1. 插入 USB 设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%AE%BF%E9%97%AE%E5%85%B1%E4%BA%AB"><span class="nav-text">2. 访问共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%9F%A5%E7%9C%8B%E7%8A%B6%E6%80%81"><span class="nav-text">3. 查看状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="nav-text">故障排除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%BD%91%E7%BB%9C%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="nav-text">1. 网络发现问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%85%B1%E4%BA%AB%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98"><span class="nav-text">2. 共享访问问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%82%E8%BD%BD%E9%97%AE%E9%A2%98"><span class="nav-text">3. 挂载问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98"><span class="nav-text">4. 权限问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E8%AF%B4%E6%98%8E"><span class="nav-text">日志说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E5%BB%BA%E8%AE%AE"><span class="nav-text">安全建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81"><span class="nav-text">技术支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-text">参考资料</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

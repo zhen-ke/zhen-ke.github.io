@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Frontend Engineer">
+    <meta name="author" content="XMit">
+    
+    <title>
+        
+            git 配置笔记 |
+        
+        XMit
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/logo.svg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"zhen-ke.github.io","root":"/","language":"zh-CN","path":"search.xml"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"XMit","author":"XMit","avatar":"/images/me.jpg","logo":"/images/me.jpg","favicon":"/images/logo.svg"},"menu":{"home":"/","archives":"/archives","tags":"/tags","categories":"/categories","about":"/about"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","background_img_dark":"/images/bg.svg","description":"诸恶莫作 众善奉行","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"updated"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY 年 MM 月 DD 日 HH:mm","copyright_info":true,"share":true,"reward":{"enable":true,"img_link":null,"text":null,"icon":null}},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"local_search":{"enable":true,"preload":true},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.36"},"waline":{"server_url":null,"reaction":false,"version":"3.2.1"},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":true},"lazyload":{"enable":true},"cdn":{"enable":false,"provider":"cdnjs"},"pjax":{"enable":true},"footer":{"since":2015,"word_count":false,"site_deploy":{"enable":true,"provider":"github","url":null},"record":{"enable":false,"list":[{"code":null,"link":null}]}},"inject":{"enable":false,"css":[null],"js":[null]},"root":"","source_data":{},"version":"4.2.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="XMit" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left flex-start border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/me.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               XMit
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc border-box">
+                <ul class="menu-list border-box">
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/">
+                                
+                                首页
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/archives">
+                                
+                                归档
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/tags">
+                                
+                                标签
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/categories">
+                                
+                                分类
+                                
+                            </a>
+                            
+                        </li>
+                    
+                        
+                        <li class="menu-item flex-start border-box">
+                            <a class="menu-text-color border-box" href="/about">
+                                
+                                关于
+                                
+                            </a>
+                            
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="menu-text-color fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile border-box flex-start">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list border-box">
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/">
+                            
+                            首页
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/archives">
+                            
+                            归档
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/tags">
+                            
+                            标签
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/categories">
+                            
+                            分类
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+                
+                <li class="drawer-menu-item border-box not-sub-menu">
+                    <label class="drawer-menu-label border-box">
+                        <a class="drawer-menu-text-color left-side flex-start border-box" href="/about">
+                            
+                            关于
+                        </a>
+                        
+                    </label>
+                    
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        git 配置笔记
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/me.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">XMit</span>
+                                
+                                    <span class="author-badge">Lv3</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2015 年 09 月 11 日 00:00</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Sat Aug 02 2025 00:29:31 GMT+0000">2025 年 08 月 02 日 00:29</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/Web-Developer/">Web Developer</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="post-tag meta-info-item border-box">
+                <ul class="post-tag-ul">
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/git/">git</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body ">
+                    
+
+                    
+                         <h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><h3 id="初次运行-git-前的配置"><a href="#初次运行-git-前的配置" class="headerlink" title="初次运行 git 前的配置"></a>初次运行 git 前的配置</h3><p>Git 提供了一个叫做 git config 的工具（译注：实际是 git-config 命令，只不过可以通过 git 加一个名字来呼叫此命令。），专门用来配置或读取相应的工作环境变量。而正是由这些环境变量，决定了 Git 在各个环节的具体工作方式和行为。这些变量可以存放在以下三个不同的地方：</p>
+<p><code>/etc/gitconfig</code></p>
+<p>系统中对所有用户都普遍适用的配置。若使用 git config 时用 –system 选项，读写的就是这个文件。</p>
+<p><code>~/.gitconfig</code></p>
+<p>用户目录下的配置文件只适用于该用户。若使用 git config 时用 –global 选项，读写的就是这个文件。</p>
+<p><code>.git/config</code></p>
+<p>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git&#x2F;config 文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git&#x2F;config 里的配置会覆盖 &#x2F;etc&#x2F;gitconfig 中的同名变量。</p>
+<span id="more"></span>
+
+<h4 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h4><p>第一个要配置的是你个人的用户名称和电子邮件地址。这两条配置很重要，每次 Git 提交时都会引用这两条信息，说明是谁提交了更新，所以会随更新内容一起被永久纳入历史记录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;John Doe&quot;</span><br><span class="line">$ git config --global user.email johndoe@example.com</span><br></pre></td></tr></table></figure>
+<p>如果用了 –global 选项，那么更改的配置文件就是位于你用户主目录下的那个，以后你所有的项目都会默认使用这里配置的用户信息。如果要在某个特定的项目中使用其他名字或者电邮，只要去掉 –global 选项重新配置即可，新的设定保存在当前项目的 .git&#x2F;config 文件里。</p>
+<h2 id="git-基础"><a href="#git-基础" class="headerlink" title="git 基础"></a>git 基础</h2><h3 id="取得项目的-git-仓库"><a href="#取得项目的-git-仓库" class="headerlink" title="取得项目的 git 仓库"></a>取得项目的 git 仓库</h3><h4 id="在工作目录初始化新仓库"><a href="#在工作目录初始化新仓库" class="headerlink" title="在工作目录初始化新仓库"></a>在工作目录初始化新仓库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git init</span><br></pre></td></tr></table></figure>
+<h4 id="从现在仓库克隆"><a href="#从现在仓库克隆" class="headerlink" title="从现在仓库克隆"></a>从现在仓库克隆</h4><p><code>git clone</code> 克隆仓库的命令格式为 <code>git clone [url]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git://github.com/schacon/grit.git</span><br></pre></td></tr></table></figure>
+<p>这会在当前目录创建一个名为<code>grit</code>的目录，在克隆地时候，自己定义要新建项目的目录名称时，可以在上面命令末尾指定新的名字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone git://github.com/schacon/grit.git mygrit</span><br></pre></td></tr></table></figure>
+
+<h3 id="记录每次更新到仓库"><a href="#记录每次更新到仓库" class="headerlink" title="记录每次更新到仓库"></a>记录每次更新到仓库</h3><h4 id="检查当前文件状态"><a href="#检查当前文件状态" class="headerlink" title="检查当前文件状态"></a>检查当前文件状态</h4><p><code>git status</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
+<h4 id="跟踪新文件"><a href="#跟踪新文件" class="headerlink" title="跟踪新文件"></a>跟踪新文件</h4><p><code>git add</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git add README</span><br></pre></td></tr></table></figure>
+<p>此时再运行 <code>git status</code> 命令，会看到 README 文件已被跟踪，并处于暂存状态：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        new file:   README</span><br></pre></td></tr></table></figure>
+
+<h4 id="暂存已修改文件"><a href="#暂存已修改文件" class="headerlink" title="暂存已修改文件"></a>暂存已修改文件</h4><p>要暂存已修改文件，需要运行 <code>git add</code> 命令</p>
+<h4 id="忽略某些文件"><a href="#忽略某些文件" class="headerlink" title="忽略某些文件"></a>忽略某些文件</h4><p>创建一个名为<code>.gitignore</code> 的文件，列出要忽略的文件模式</p>
+<p>文件 .gitignore 的格式规范如下：</p>
+<ul>
+<li>所有空行或者以注释符号 ＃ 开头的行都会被 Git 忽略。</li>
+<li>可以使用标准的 glob 模式匹配。</li>
+<li>匹配模式最后跟反斜杠（&#x2F;）说明要忽略的是目录。</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 此为注释 – 将被 Git 忽略</span><br><span class="line"># 忽略所有 .a 结尾的文件</span><br><span class="line">*.a</span><br><span class="line"># 但 lib.a 除外</span><br><span class="line">!lib.a</span><br><span class="line"># 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO</span><br><span class="line">/TODO</span><br><span class="line"># 忽略 build/ 目录下的所有文件</span><br><span class="line">build/</span><br><span class="line"># 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt</span><br><span class="line">doc/*.txt</span><br><span class="line"># ignore all .txt files in the doc/ directory</span><br><span class="line">doc/**/*.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看已暂存和未暂存的更新"><a href="#查看已暂存和未暂存的更新" class="headerlink" title="查看已暂存和未暂存的更新"></a>查看已暂存和未暂存的更新</h4><p><code>git status</code> 列出了修改过的文件。</p>
+<p>未暂存的文件更新了哪些部分，可以用 <code>git diff</code> 命令。</p>
+<p>已经暂存文件 - 上次提交时的快照之间的差异，<code>git diff --cached</code>(1.6.1 及更高版本还允许使用 <code>git diff --staged</code>)</p>
+<h4 id="提交更新"><a href="#提交更新" class="headerlink" title="提交更新"></a>提交更新</h4><p><code>git commit</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit</span><br></pre></td></tr></table></figure>
+<p>这种方式会启动文本编辑器以便输入本次提交的说明.</p>
+<p>另外也可以用 <code>-m</code> 参数后跟提交说明的方式，在一行命令中提交更新：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -m &quot;本次提交的说明文字。&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="跳过使用暂存区域"><a href="#跳过使用暂存区域" class="headerlink" title="跳过使用暂存区域"></a>跳过使用暂存区域</h4><p>给 <code>git commit</code> 加上 <code>-a</code> 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit -a -m &#x27;added new benchmarks&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="移除文件"><a href="#移除文件" class="headerlink" title="移除文件"></a>移除文件</h4><p>手工移除文件时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ rm grit.gemspec</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged for commit:</span><br><span class="line">  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)</span><br><span class="line">  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">        deleted:    grit.gemspec</span><br><span class="line"></span><br><span class="line">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</span><br></pre></td></tr></table></figure>
+
+<p><code>git rm</code> 记录此次移除文件，提交时，该文件不会纳入版本控制。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git rm grit.gemspec</span><br><span class="line">rm &#x27;grit.gemspec&#x27;</span><br><span class="line">$ git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">        deleted:    grit.gemspec</span><br></pre></td></tr></table></figure>
+<p>想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rm --cached readme.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="移动文件"><a href="#移动文件" class="headerlink" title="移动文件"></a>移动文件</h4><p>在 Git 中对文件改名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git mv file_from file_to</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><p><code>git log</code></p>
+<p>默认不用任何参数的话，git log 会按提交时间列出所有的更新，最近的更新排在最上面</p>
+<p>git log 选项:</p>
+<ul>
+<li><code>-p</code>	按补丁格式显示每个更新之间的差异。</li>
+<li><code>--word-diff</code>按 word diff 格式显示差异。</li>
+<li><code>--stat</code>显示每次更新的文件修改统计信息。</li>
+<li><code>--shortstat</code>只显示 –stat 中最后的行数修改添加移除统计。</li>
+<li><code>--name-only</code>仅在提交信息后显示已修改的文件清单。</li>
+<li><code>--name-status</code>显示新增、修改、删除的文件清单。</li>
+<li><code>--abbrev-commit</code>仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。</li>
+<li><code>--relative-date</code>使用较短的相对时间显示（比如，“2 weeks ago”）。</li>
+<li><code>--graph</code>显示 ASCII 图形表示的分支合并历史。</li>
+<li><code>--pretty</code>使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。</li>
+<li><code>--oneline``--pretty=oneline</code> <code>--abbrev-commit</code> 的简化用法。</li>
+<li><code>-2</code> 则仅显示最近的两次更新;</li>
+</ul>
+<h3 id="撤消操作"><a href="#撤消操作" class="headerlink" title="撤消操作"></a>撤消操作</h3><h4 id="修改最后一次提交"><a href="#修改最后一次提交" class="headerlink" title="修改最后一次提交"></a>修改最后一次提交</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git commit --amend</span><br></pre></td></tr></table></figure>
+
+<h4 id="取消已经暂存的文件"><a href="#取消已经暂存的文件" class="headerlink" title="取消已经暂存的文件"></a>取消已经暂存的文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="取消对文件的修改"><a href="#取消对文件的修改" class="headerlink" title="取消对文件的修改"></a>取消对文件的修改</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- benchmarks.rb</span><br></pre></td></tr></table></figure>
+
+<h3 id="远程仓库的使用"><a href="#远程仓库的使用" class="headerlink" title="远程仓库的使用"></a>远程仓库的使用</h3><h4 id="查看当前的远程库"><a href="#查看当前的远程库" class="headerlink" title="查看当前的远程库"></a>查看当前的远程库</h4><p><code>git remote</code></p>
+<p>它会列出每个远程库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程库，Git 默认使用这个名字来标识你所克隆的原始仓库</p>
+<p>-v 选项,显示对应的克隆地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br><span class="line">origin  git://github.com/schacon/ticgit.git (fetch)</span><br><span class="line">origin  git://github.com/schacon/ticgit.git (push)</span><br></pre></td></tr></table></figure>
+<h4 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h4><p>要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 <code>git remote add [shortname] [url]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git remote</span><br><span class="line">origin</span><br><span class="line">$ git remote add pb git://github.com/paulboone/ticgit.git</span><br><span class="line">$ git remote -v</span><br><span class="line">origin  git://github.com/schacon/ticgit.git</span><br><span class="line">pb  git://github.com/paulboone/ticgit.git</span><br></pre></td></tr></table></figure>
+
+
+
+                    
+                </div>
+
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                git 配置笔记
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2015/09/11/git-configuration-notes/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">XMit</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2015-09-11 00:00</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                            <ul class="post-tags-box border-box">
+                                
+                                    <li class="tag-item border-box">
+                                        <i class="icon fas fa-hashtag"></i>&nbsp;<a href="/tags/git/">git</a>
+                                    </li>
+                                
+                            </ul>
+                        
+                    </div>
+                    <div>
+                        
+                            <div class="post-share-container border-box">
+    <ul class="share-list-wrap border-box">
+        <li class="qq share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到 QQ"
+        >
+            <i class="fa-brands fa-qq"></i>
+        </li>
+        <li class="wechat share-item border-box flex-center tooltip tooltip-img"
+            data-tooltip-content="分享到微信"
+            data-tooltip-img-tip="微信扫一扫"
+            data-tooltip-img-style="background-color: #fff; top: -10px; padding: 0.6rem 0.6rem 0.1rem 0.6rem;"
+        >
+            <i class="fa-brands fa-weixin"></i>
+        </li>
+        <li class="weibo share-item border-box flex-center tooltip"
+            data-tooltip-content="分享到微博"
+        >
+            <i class="fa-brands fa-weibo"></i>
+        </li>
+    </ul>
+</div>
+
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2016/01/06/osx-install-aria2/"
+                                   title="OS X 下安装 aria2"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">OS X 下安装 aria2</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2015/08/27/sublime-text-snippets/"
+                                   title="Sublime Text - Snippets"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Sublime Text - Snippets</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%AD%A5"><span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">初次运行 git 前的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-text">用户信息</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%E5%9F%BA%E7%A1%80"><span class="nav-text">git 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E9%A1%B9%E7%9B%AE%E7%9A%84-git-%E4%BB%93%E5%BA%93"><span class="nav-text">取得项目的 git 仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E4%BB%93%E5%BA%93"><span class="nav-text">在工作目录初始化新仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E7%8E%B0%E5%9C%A8%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="nav-text">从现在仓库克隆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93"><span class="nav-text">记录每次更新到仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="nav-text">检查当前文件状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9F%E8%B8%AA%E6%96%B0%E6%96%87%E4%BB%B6"><span class="nav-text">跟踪新文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E5%B7%B2%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-text">暂存已修改文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6"><span class="nav-text">忽略某些文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%B2%E6%9A%82%E5%AD%98%E5%92%8C%E6%9C%AA%E6%9A%82%E5%AD%98%E7%9A%84%E6%9B%B4%E6%96%B0"><span class="nav-text">查看已暂存和未暂存的更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9B%B4%E6%96%B0"><span class="nav-text">提交更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%BF%87%E4%BD%BF%E7%94%A8%E6%9A%82%E5%AD%98%E5%8C%BA%E5%9F%9F"><span class="nav-text">跳过使用暂存区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-text">移除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="nav-text">移动文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2"><span class="nav-text">查看提交历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C"><span class="nav-text">撤消操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="nav-text">修改最后一次提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E5%B7%B2%E7%BB%8F%E6%9A%82%E5%AD%98%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">取消已经暂存的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E5%AF%B9%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-text">取消对文件的修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">远程仓库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="nav-text">查看当前的远程库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-text">添加远程仓库</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="copyright-info info-item">
+        &copy;&nbsp;<span>2015</span>&nbsp;-&nbsp;2025
+        
+            &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">XMit</a>
+        
+    </div>
+
+    <div class="theme-info info-item">
+        由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+    </div>
+
+    
+        
+        <div class="deploy-info info-item">
+            
+            本站由 <span class="tooltip" data-tooltip-content="GitHub Pages"><img src="/images/brands/github.png"></span> 提供部署服务
+            
+        </div>
+    
+
+    
+
+    
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="post-tools-list border-box">
+        <!-- PC encrypt again -->
+        
+
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <!-- toggle mode -->
+        
+            <li class="tools-item tool-toggle-theme-mode flex-center">
+                <i class="fas fa-moon"></i>
+            </li>
+        
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        <!-- to bottom -->
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%AD%A5"><span class="nav-text">起步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-text">初次运行 git 前的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-text">用户信息</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-%E5%9F%BA%E7%A1%80"><span class="nav-text">git 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E9%A1%B9%E7%9B%AE%E7%9A%84-git-%E4%BB%93%E5%BA%93"><span class="nav-text">取得项目的 git 仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%9B%AE%E5%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E4%BB%93%E5%BA%93"><span class="nav-text">在工作目录初始化新仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E7%8E%B0%E5%9C%A8%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86"><span class="nav-text">从现在仓库克隆</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93"><span class="nav-text">记录每次更新到仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8D%E6%96%87%E4%BB%B6%E7%8A%B6%E6%80%81"><span class="nav-text">检查当前文件状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9F%E8%B8%AA%E6%96%B0%E6%96%87%E4%BB%B6"><span class="nav-text">跟踪新文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E5%B7%B2%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-text">暂存已修改文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%9F%90%E4%BA%9B%E6%96%87%E4%BB%B6"><span class="nav-text">忽略某些文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%B2%E6%9A%82%E5%AD%98%E5%92%8C%E6%9C%AA%E6%9A%82%E5%AD%98%E7%9A%84%E6%9B%B4%E6%96%B0"><span class="nav-text">查看已暂存和未暂存的更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9B%B4%E6%96%B0"><span class="nav-text">提交更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%B3%E8%BF%87%E4%BD%BF%E7%94%A8%E6%9A%82%E5%AD%98%E5%8C%BA%E5%9F%9F"><span class="nav-text">跳过使用暂存区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-text">移除文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%96%87%E4%BB%B6"><span class="nav-text">移动文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2"><span class="nav-text">查看提交历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C"><span class="nav-text">撤消操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9C%80%E5%90%8E%E4%B8%80%E6%AC%A1%E6%8F%90%E4%BA%A4"><span class="nav-text">修改最后一次提交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E5%B7%B2%E7%BB%8F%E6%9A%82%E5%AD%98%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-text">取消已经暂存的文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E5%AF%B9%E6%96%87%E4%BB%B6%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-text">取消对文件的修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">远程仓库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9A%84%E8%BF%9C%E7%A8%8B%E5%BA%93"><span class="nav-text">查看当前的远程库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-text">添加远程仓库</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+
+
+<!-- common js -->
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/toggle-theme.js"></script>
+
+<script src="/js/code-block.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+
+<!-- local search -->
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+<!-- lazyload -->
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="pjax">
+    <!-- home page -->
+    
+
+    <!-- post page -->
+    
+        <!-- post-helper -->
+        
+<script src="/js/post/post-helper.js"></script>
+
+
+        <!-- toc -->
+        
+            
+<script src="/js/post/toc.js"></script>
+
+        
+
+        <!-- copyright-info -->
+        
+            
+<script src="/js/post/copyright-info.js"></script>
+
+        
+
+        <!-- share -->
+        
+            
+<script src="/js/post/share.js"></script>
+
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart()
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd()
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'))
+            KEEP.initExecute()
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
